@@ -14,7 +14,9 @@ export default async function Home() {
       <ul className="space-y-4">
         {articles.data.map((article) => (
           <li key={article.id} className="p-4 border rounded shadow">
-            <h2 className="text-2xl font-semibold">{article.title}</h2>
+            <Link href={`/articles/${article.slug}`}>
+              <h2 className="text-2xl font-semibold hover:underline">{article.title}</h2>
+            </Link>
           </li>
         ))}
       </ul>
