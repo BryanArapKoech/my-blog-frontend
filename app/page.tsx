@@ -1,7 +1,23 @@
-export default function Home() {
+import Link from "next/link";
+import { fetchFromStrapi } from "@/lib/strapi";
+import { Article } from "@/lib/types";
+
+export default async function Home() {
+  const articles = await fetchFromStrapi<Article>("articles");
+
+  console.log("Response from Strapi:", JSON.stringify(articles, null, 2));
+  
   return (
-    <main>
-      <h1>My Blog</h1>
+    <main className="container mx-auto p-4">
+      <h1 className="text-4xl font-bold mb-4">My Blog</h1>
+
+      <ul className="space-y-4">
+        {articles.data.map((article) => (
+          <li key={article.id} className="p-4 border rounded shadow">
+            <h2 className="text-2xl font-semibold">{article.title}</h2>
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }
